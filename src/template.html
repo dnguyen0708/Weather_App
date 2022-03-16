@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/6922474a6e.js" crossorigin="anonymous"></script>
+    <title>Weather App</title>
+</head>
+
+<body>
+    <div class="bg-img"></div>
+    <div class="header">
+        <div class="form-control">
+            <input type="text" id="city" name="query" placeholder="Enter a City">
+            <button type="button" class="searchBtn"><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+    <div class="content">
+        <div class="display">
+            <div class="left">
+                <div class="temperature">79</div>
+                <div class="unit-toggle">
+                    <span class="fahrenheit temp active"><span>&#176;</span>F</span>
+                    <span>|</span>
+                    <span class="celcius temp"><span>&#176;</span>C</span>
+                </div>
+                <div class="more-info">
+                    <!-- <span class="precip">precipitation: 5%</span> -->
+                    <span class="humid">humidity: 69%</span>
+                    <span class="wind">wind: 5mph</span>
+                </div>
+            </div>
+            <div class="location">
+                <h1 class="city">Sacramento</h1>
+                <h2 class="info">Cloudy</h2>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
