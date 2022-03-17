@@ -5,6 +5,7 @@ import cloudy from "./images/cloudy.jpg";
 import snow from "./images/snow.jpg";
 const content = document.querySelector('.content');
 const bgImg = document.querySelector('.bg-img');
+const bgLoading = document.querySelector('.bg-loading');
 let lastBGImg;
 let absoluteTemp = 0;
 const getData = async (url) => {
@@ -21,6 +22,8 @@ const getData = async (url) => {
             alert("can't find that city! try again.");
             content.style.display = "block";
             bgImg.style.backgroundImage = lastBGImg;
+            bgLoading.style.display = 'none';
+            bgImg.style.display = 'block';
         } else {
             throw e;
         }
@@ -59,6 +62,8 @@ const insertData = function (data) {
             bgImg.style.backgroundImage = lastBGImg;
             break;
     }
+    bgLoading.style.display = 'none';
+    bgImg.style.display = 'block';
     checkIconExist();
     leftPanel.insertBefore(icon, leftPanel.firstChild);
     temp.textContent = parseInt((parseFloat(absoluteTemp) - 273.15) * (9 / 5) + 32);
