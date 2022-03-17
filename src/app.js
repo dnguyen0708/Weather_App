@@ -6,6 +6,7 @@ import cloudy from "./images/cloudy.jpg";
 import snow from "./images/snow.jpg";
 import loading from "./images/loading-100.gif";
 import { tempConvertC, tempConvertF } from "./tempConvertion";
+import { checkIconExist } from "./helper";
 const bgImg = document.querySelector('.bg-img');
 const searchBtn = document.querySelector(".searchBtn");
 const unitToggleF = document.querySelector(".fahrenheit");
@@ -35,14 +36,6 @@ const getData = async (url) => {
         }
     }
 
-}
-
-function checkIconExist() {
-    const icon = document.querySelector('.left .fa-solid');
-    if (icon) {
-        const leftPanel = document.querySelector('.left');
-        leftPanel.removeChild(icon);
-    }
 }
 const insertData = function (data) {
     const icon = document.createElement('i');
