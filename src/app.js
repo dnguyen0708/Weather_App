@@ -10,8 +10,11 @@ const bgImg = document.querySelector('.bg-img');
 const searchBtn = document.querySelector(".searchBtn");
 const unitToggleF = document.querySelector(".fahrenheit");
 const unitToggleC = document.querySelector(".celcius");
+const content = document.querySelector('.content');
+let lastBGImg;
 let absoluteTemp = 0;
 let url = "http://api.openweathermap.org/data/2.5/weather?q=Sacramento&APPID=352af670c848dc23fc755682c4022f19";
+
 
 const getData = async (url) => {
     try {
@@ -25,8 +28,8 @@ const getData = async (url) => {
     } catch (e) {
         if (e.message == "Not Found") {
             alert("can't find that city! try again.");
-            document.body.style.display = "block";
-            bgImg.style.backgroundImage = "none";
+            content.style.display = "block";
+            bgImg.style.backgroundImage = lastBGImg;
         } else {
             throw e;
         }
@@ -51,24 +54,27 @@ const insertData = function (data) {
     const city = document.querySelector('.city');
     const info = document.querySelector('.info');
     absoluteTemp = data.main.temp;
-    bgImg.style.backgroundSize = "cover";
-    document.body.style.display = "block";
+    content.style.display = "block";
     switch (data.weather[0].main) {
         case "Rain":
             icon.className = "fa-solid fa-cloud-showers-heavy";
-            bgImg.style.backgroundImage = `url(${raining}`;
+            lastBGImg = `url(${raining}`;
+            bgImg.style.backgroundImage = lastBGImg;
             break;
         case "Clear":
             icon.className = "fa-solid fa-sun";
-            bgImg.style.backgroundImage = `url(${sunny}`;
+            lastBGImg = `url(${sunny}`;
+            bgImg.style.backgroundImage = lastBGImg;
             break;
         case "Clouds":
             icon.className = "fa-solid fa-cloud";
-            bgImg.style.backgroundImage = `url(${cloudy}`;
+            lastBGImg = `url(${cloudy}`;
+            bgImg.style.backgroundImage = lastBGImg;
             break;
         case "Snow":
             icon.className = "fa-solid fa-snowflake";
-            bgImg.style.backgroundImage = `url(${snow}`;
+            lastBGImg = `url(${snow}`;
+            bgImg.style.backgroundImage = lastBGImg;
             break;
     }
     checkIconExist();
@@ -83,9 +89,8 @@ function fetchData() {
     const query = document.querySelector("#city");
     if (query.value) {
         bgImg.style.backgroundImage = `url(${loading}`;
-        bgImg.style.backgroundSize = "auto";
-        document.body.style.display = "none";
-        url = `http://api.openweathermap.org/data/2.5/weather?q=${query.value.replace(/\s/g, "")}&APPID=352af670c848dc23fc755682c4022f19`;
+        content.style.display = "none";
+        url = `http://api.openweathermap.org/data/2.5/weather?q=${query.value}&APPID=352af670c848dc23fc755682c4022f19`;
         getData(url);
         query.value = '';
     }
@@ -95,7 +100,7 @@ function enterKeyPressed(e) {
         fetchData();
     }
 }
-// getData(url);
+getData(url);
 unitToggleC.addEventListener('click', () => tempConvertC(absoluteTemp));
 unitToggleF.addEventListener('click', () => tempConvertF(absoluteTemp));
 searchBtn.addEventListener('click', fetchData);
