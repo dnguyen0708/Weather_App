@@ -3,9 +3,8 @@ import sunny from "./images/sun.jpg";
 import raining from "./images/raining.jpg";
 import cloudy from "./images/cloudy.jpg";
 import snow from "./images/snow.jpg";
-const content = document.querySelector('.content');
+import toggleLoadingScreen from "./loading";
 const bgImg = document.querySelector('.bg-img');
-const bgLoading = document.querySelector('.bg-loading');
 let lastBGImg;
 let absoluteTemp = 0;
 const getData = async (url) => {
@@ -20,10 +19,7 @@ const getData = async (url) => {
     } catch (e) {
         if (e.message == "Not Found") {
             alert("can't find that city! try again.");
-            content.style.display = "block";
-            bgImg.style.backgroundImage = lastBGImg;
-            bgLoading.style.display = 'none';
-            bgImg.style.display = 'block';
+            toggleLoadingScreen(lastBGImg);
         } else {
             throw e;
         }
@@ -39,7 +35,6 @@ const insertData = function (data) {
     const city = document.querySelector('.city');
     const info = document.querySelector('.info');
     absoluteTemp = data.main.temp;
-    content.style.display = "block";
     switch (data.weather[0].main) {
         case "Rain":
             icon.className = "fa-solid fa-cloud-showers-heavy";
@@ -62,8 +57,7 @@ const insertData = function (data) {
             bgImg.style.backgroundImage = lastBGImg;
             break;
     }
-    bgLoading.style.display = 'none';
-    bgImg.style.display = 'block';
+    toggleLoadingScreen();
     checkIconExist();
     leftPanel.insertBefore(icon, leftPanel.firstChild);
     temp.textContent = parseInt((parseFloat(absoluteTemp) - 273.15) * (9 / 5) + 32);

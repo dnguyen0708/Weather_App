@@ -1,14 +1,11 @@
 import "./form_reset.css";
 import './style.css';
-import loading from "./images/loading-100.gif";
+import toggleLoadingScreen from "./loading";
 import { tempConvertC, tempConvertF } from "./tempConvertion";
 import { getData, insertData, absoluteTemp } from "./get_data";
 const searchBtn = document.querySelector(".searchBtn");
 const unitToggleF = document.querySelector(".fahrenheit");
 const unitToggleC = document.querySelector(".celcius");
-const content = document.querySelector('.content');
-const bgImg = document.querySelector('.bg-img');
-const bgLoading = document.querySelector('.bg-loading');
 let url = "http://api.openweathermap.org/data/2.5/weather?q=Sacramento&APPID=352af670c848dc23fc755682c4022f19";
 
 const data = getData(url);
@@ -17,10 +14,7 @@ data.then(d => insertData(d));
 function fetchData() {
     const query = document.querySelector("#city");
     if (query.value) {
-        bgLoading.style.backgroundImage = `url(${loading}`;
-        bgLoading.style.display = "block";
-        bgImg.style.display = "none";
-        content.style.display = "none";
+        toggleLoadingScreen(null, true);
         url = `http://api.openweathermap.org/data/2.5/weather?q=${query.value}&APPID=352af670c848dc23fc755682c4022f19`;
         const newData = getData(url);
         newData.then(d => insertData(d));
